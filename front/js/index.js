@@ -1,47 +1,73 @@
+// import fetch from 'node-fetch'
 
+// import fetch from 'node-fetch' 
 
 const uri = 'http://localhost:3000/api/products'
+let response;
 
-
-fetch(uri)
-    .then((res) => res.json())
-    .then((data) => createSofaCards(data));
-
-
-function createSofaCards (array) {
-    const container = document.getElementById('#items');
-    const length = array.length;
-
-    for (let i=0; i<length; i++) {
-       const card = createSofaCards(array[i]);
-       container.appendChild(card);
-
+// document.addEventListener("DOMContentLoaded", function(){
+//     console.log('DOM loaded')
+    fetchResponse()
+    
+    async function fetchResponse() {
+        const response = await fetch( uri )
+        const sofas = await response.json()
+        createSofaCards( sofas )
     }
-}
+// })
+function createSofaCards(index) {
+   
+    let zoneArticle = document.querySelector("#items");
+   
+    for (let article of index) {
+      
+      zoneArticle.innerHTML += `<a href="./product.html?_id=${article._id}">
+      <article>
+        <img src="${article.imageUrl}" alt="${article.altTxt}">
+        <h3 class="productName">${article.name}</h3>
+        <p class="productDescription">${article.description}</p>
+      </article>
+    </a>`;
+    }
 
-function createCard(obj){
 
-    const card = document.createElement('article');
 
-    const colours = document.createElement('p')
-    const img = document.createElement('img');
-    const name = document.createElement('h3');
-    const price = document.createElement('p');
-    const description = document.createElement('p')
-    const altText = document.createElement('p')
 
-    card.classList.add('card');
+    
+// function createSofaCards (array) {
+//     const container = document.getElementById('items');
+//     const length = array.length;
 
-    name.innerHTML = obj.name;
-    price.innerText = obj.price;
+//     for (let i=0; i<length; i++) {
+//        const card = createSofaCards(array[i]);
+//        container.appendChild(card);
 
-    img.setAttribute('src', obj.imageUrl)
+//     }
+// }
 
-    card.appendChild(img);
-    card.appendChild(name);
-    card.appendChild(price);
+// function createCard(obj){
 
-    return card;
+//     const card = document.createElement('article');
+
+//     const colours = document.createElement('p')
+//     const img = document.createElement('img');
+//     const name = document.createElement('h3');
+//     const price = document.createElement('p');
+//     const description = document.createElement('p')
+//     const altText = document.createElement('p')
+
+//     card.classList.add('card');
+
+//     name.innerHTML = obj.name;
+//     price.innerText = obj.price;
+
+//     img.setAttribute('src', obj.imageUrl)
+
+//     card.appendChild(img);
+//     card.appendChild(name);
+//     card.appendChild(price);
+
+//     return card;
 
 
 

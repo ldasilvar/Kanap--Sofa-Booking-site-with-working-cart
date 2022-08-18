@@ -1,6 +1,9 @@
 {
+  "name": "app",
+  "description": "my app description",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
-    "node-fetch": "^3.2.10",
-    "type": "module"
+    "node-fetch": "^3.2.10"
   }
 }
