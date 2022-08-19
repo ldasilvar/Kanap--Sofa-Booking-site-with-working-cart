@@ -1,23 +1,29 @@
-const params = new URLSearchParams(document.location.search); 
-const id = params.get("_id");
+const idLocator = window.location.search;
 
 
-const uri = 'http://localhost:3000/api/products'
+const params = new URLSearchParams(idLocator);
+
+
+let productId = params.get("_id");
+
+const uri = 'http://localhost:3000/api/products';
+
+
 let response;
 
-// document.addEventListener("DOMContentLoaded", function(){
-//     console.log('DOM loaded')
     fetchResponse()
     
     async function fetchResponse() {
         const response = await fetch( uri )
-        const product = await response.json()
-        sofaProducts(product);
-    }
+        const products = await response.json()
+        sofaProducts(products)
 
-    let articleClient = {};
-   
-    articleClient._id = id;
+    
+    }
+    
+
+
+// Function to populate the products page using the API and the URL Search Params of the product clicked
 
     function sofaProducts(products) {
        
@@ -29,7 +35,7 @@ let response;
        
         for (let choice of products) {
           
-          if (id === choice._id) {
+          if (productId === choice._id) {
             
             imageAlt.innerHTML = `<img src="${choice.imageUrl}" alt="${choice.altTxt}">`;
             title.textContent = `${choice.name}`;
@@ -44,4 +50,29 @@ let response;
         }
         console.log("choice succesful");
       }
-     
+
+
+let cartButton = document.getElementById("addToCart");
+let quantity = document.getElementById('quantity');
+let color = document.getElementById('colors');
+
+let productLocalStorageString = localStorage.getItem("product");
+let productLocalStorage = JSON.parse(productLocalStorageString);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

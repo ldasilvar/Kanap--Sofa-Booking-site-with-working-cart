@@ -13,8 +13,15 @@ let response;
         const response = await fetch( uri )
         const sofas = await response.json()
         createSofaCards( sofas )
+
+    // .catch(function (error) {
+    //         alert("⚠️ Error! Fetch()!")
+    //       }
     }
 // })
+
+// Function to create the sofa cards on the main page using the API
+
 function createSofaCards(index) {
    
     let zoneArticle = document.querySelector("#items");
