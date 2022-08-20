@@ -2,80 +2,63 @@
 
 // import fetch from 'node-fetch' 
 
-const uri = 'http://localhost:3000/api/products'
-let response;
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     console.log('DOM loaded')
-    fetchResponse()
-    
-    async function fetchResponse() {
-        const response = await fetch( uri )
-        const sofas = await response.json()
-        createSofaCards( sofas )
-
-    // .catch(function (error) {
-    //         alert("⚠️ Error! Fetch()!")
-    //       }
-    }
-// })
-
-// Function to create the sofa cards on the main page using the API
-
-function createSofaCards(index) {
-   
-    let zoneArticle = document.querySelector("#items");
-   
-    for (let article of index) {
-      
-      zoneArticle.innerHTML += `<a href="./product.html?_id=${article._id}">
-      <article>
-        <img src="${article.imageUrl}" alt="${article.altTxt}">
-        <h3 class="productName">${article.name}</h3>
-        <p class="productDescription">${article.description}</p>
-      </article>
-    </a>`;
-    }
+const uri = "http://localhost:3000/api/products";
 
 
+function displayAllProducts() {
+  fetch(uri)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (products) {
+      console.log(products);
 
+      // 5. Use forEach Method
 
-    
-// function createSofaCards (array) {
-//     const container = document.getElementById('items');
-//     const length = array.length;
+      products.forEach(product => {
 
-//     for (let i=0; i<length; i++) {
-//        const card = createSofaCards(array[i]);
-//        container.appendChild(card);
+        // products.forEach(function(product) {});
 
-//     }
-// }
+        console.log(product);
 
-// function createCard(obj){
+        // 6. Use "createElement, appendChild, setAttribute" Methods
+        // setAttribute(name, value) => it adds the name of the attribute and its value, setAttribute("href", url)
+        // createElement("img") => it adds an <img> element 
+        // appendChild() => it adds your HTML element to the existing HTML element 
 
-//     const card = document.createElement('article');
+        let productLink = document.createElement('a');
+        productLink.setAttribute('href', `product.html?id=${product._id}`);
+        document.getElementById('items').appendChild(productLink);
 
-//     const colours = document.createElement('p')
-//     const img = document.createElement('img');
-//     const name = document.createElement('h3');
-//     const price = document.createElement('p');
-//     const description = document.createElement('p')
-//     const altText = document.createElement('p')
+        // You can also use this opportunity => productLink.href = `product.html?id=${product._id}`;
+        // This is short way for setAttribute but use always "setAttribute" which is clear to understand the code
 
-//     card.classList.add('card');
+        let article = document.createElement('article');
+        productLink.appendChild(article);
 
-//     name.innerHTML = obj.name;
-//     price.innerText = obj.price;
+        let image = document.createElement('img');
+        image.setAttribute('src', product.imageUrl);
+        image.setAttribute('alt', product.altTxt);
+        article.appendChild(image);
 
-//     img.setAttribute('src', obj.imageUrl)
+        let title = document.createElement('h3');
+        title.setAttribute('class', 'productName');
+        article.appendChild(title);
+        title.innerText = product.name;
 
-//     card.appendChild(img);
-//     card.appendChild(name);
-//     card.appendChild(price);
+        let description = document.createElement('p');
+        description.setAttribute('class', 'productDescription');
+        article.appendChild(description);
+        description.innerText = product.description;
 
-//     return card;
+      });
 
-
-
+    })
+    .catch(function (error) {
+      alert("⚠️ Error! Fetch()!")
+    });
 }
+displayAllProducts();
+
