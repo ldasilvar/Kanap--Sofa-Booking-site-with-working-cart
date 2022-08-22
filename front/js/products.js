@@ -67,7 +67,7 @@ function displaySofa(product) {
 
 let cartButton = document.getElementById("addToCart");
 let quantity = document.getElementById('quantity');
-let colour = document.getElementById('colors');
+let color = document.getElementById('colors');
 
 
 //This stores the value in the local storage
@@ -89,23 +89,23 @@ function addSofaToCart(product) {
         }
 
         if ((quantity.value == 0 || quantity.value == null) && (color.value == 0 || color.value == null)) {
-            alert('⚠️ Please choose the quantity and a colour!');
+            alert('⚠️ Please choose the number of products you wish to purchase and the colour!');
             window.location.reload();
         }
         else if (color.value == 0 || color.value == null) {
-            alert('⚠️ Please choose a colour!');
+            alert('⚠️ Please choose the colour of the sofa you would like!');
             window.location.reload();
         }
         else if (quantity.value == 0 || quantity.value == null) {
-            alert('⚠️ Please choose the quantity enter 0 and 101!');
+            alert('⚠️ Please enter a quantity between 1 and 100');
             window.location.reload();
         }
         else if (quantity.value < 0) {
-            alert('⚠️ You can NOT choose a negative value!');
+            alert('⚠️ You can NOT choose a quantity of less than 1 product');
             window.location.reload();
         }
         else if (quantity.value > 100) {
-            alert('⚠️ You can NOT choose a value greater than 100!');
+            alert('⚠️ You can NOT choose a quantity of more than 100!');
             window.location.reload();
         }
         else if (quantity.value > 0 && quantity.value <= 100) {
@@ -113,7 +113,7 @@ function addSofaToCart(product) {
             const messageAlert = function () {
 
                 alert(`
-                ✅ The selected product was added to the cart! 
+                ✅ The sofa you selected was added to the cart! 
                 
                 ✔️ Product quantity: ${sofaProperties.productQuantity} 
                 ✔️ Product name: ${product.name} 
@@ -139,12 +139,12 @@ function addSofaToCart(product) {
 
 
                     if (sofaLocalStorage[filterProduct].productQuantity == 100) {
-                        alert(`✅ You already chosed "${sofaLocalStorage[filterProduct].productQuantity}" product for the product "${product.name}", thus you can NOT choose more product!`);
+                        alert(`✅ You already chose "${sofaLocalStorage[filterProduct].productQuantity}" sofas in our "${product.name}" line, and therefore you can NOT add any more!`);
                         window.location.reload();
                     }
 
                     else if ((sofaLocalStorage[filterProduct].productQuantity + sofaProperties.productQuantity) > 100) {
-                        alert(`✅ You have already added "${sofaLocalStorage[filterProduct].productQuantity}" products for the product "${product.name}", thus you can add maximum "${100 - sofaLocalStorage[filterProduct].productQuantity}" from the same product!`);
+                        alert(`✅ You have already added "${sofaLocalStorage[filterProduct].productQuantity}" sofas in our "${product.name}" line, and therefore you can add a maximum of "${100 - sofaLocalStorage[filterProduct].productQuantity}" from the same line!`);
                         window.location.reload();
 
                     }
