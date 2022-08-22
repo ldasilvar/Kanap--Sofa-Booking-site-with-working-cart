@@ -3,7 +3,7 @@ const uri = "http://localhost:3000/api/products";
 
 //Function to populate all the sofa products on the main page from the API
 
-function displayAllProducts() {
+function displaySofas() {
   fetch(uri) // fetch the localhost
     .then(function (response) {
       if (response.ok) {
@@ -22,12 +22,12 @@ function displayAllProducts() {
         console.log(product);
 
         
-        let productLink = document.createElement('a');
-        productLink.setAttribute('href', `product.html?id=${product._id}`);
-        document.getElementById('items').appendChild(productLink);
+        let sofaLink = document.createElement('a');
+        sofaLink.setAttribute('href', `product.html?id=${product._id}`);
+        document.getElementById('items').appendChild(sofaLink);
 
         let article = document.createElement('article');
-        productLink.appendChild(article);
+        sofaLink.appendChild(article);
 
         let image = document.createElement('img');
         image.setAttribute('src', product.imageUrl);
@@ -51,5 +51,5 @@ function displayAllProducts() {
       alert("⚠️ Error! Fetch()!")
     });
 }
-displayAllProducts();
+displaySofas();
 

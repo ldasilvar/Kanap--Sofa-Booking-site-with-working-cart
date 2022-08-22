@@ -9,12 +9,12 @@ let productId = urlParams.get("id");
 
 console.log(productId); 
 
-let urlProduct = `http://localhost:3000/api/products/${productId}`;
+let productLink = `http://localhost:3000/api/products/${productId}`;
 
-console.log(urlProduct); 
+console.log(productLink); 
 
-function getProduct() {
-    fetch(urlProduct).then((response) => {
+function fetchSofa() {
+    fetch(productLink).then((response) => {
         return response.json();
 
     }).then(function (product) {
@@ -22,8 +22,8 @@ function getProduct() {
         console.log(product);
 
         if (product) {
-            displayProduct(product);
-            addProductToCart(product);
+            displaySofa(product);
+            addSofaToCart(product);
         }
 
     }).catch((error) => {
@@ -31,69 +31,69 @@ function getProduct() {
 
     })
 }
-getProduct();
+fetchSofa();
 
-// Display image, title, price, description and color option of one product
+// Display the image of the sofa clicked on and the title, price, description and colour 
 
-function displayProduct(product) {
+function displaySofa(product) {
 
-    let productImage = document.createElement("img");
-    document.querySelector(".item__img").appendChild(productImage);
-    productImage.setAttribute('src', product.imageUrl);
-    productImage.setAttribute('alt', product.altTxt);
+    let sofaImage = document.createElement("img");
+    document.querySelector(".item__img").appendChild(sofaImage);
+    sofaImage.setAttribute('src', product.imageUrl);
+    sofaImage.setAttribute('alt', product.altTxt);
 
-    let productName = document.getElementById('title');
-    productName.innerText = product.name;
+    let sofaTitle = document.getElementById('title');
+    sofaTitle.innerText = product.name;
 
-    let productPrix = document.getElementById('price');
-    productPrix.innerText = product.price;
+    let sofaPrice = document.getElementById('price');
+    sofaPrice.innerText = product.price;
 
-    let productDescription = document.getElementById('description');
-    productDescription.innerText = product.description;
+    let sofaDescription = document.getElementById('description');
+    sofaDescription.innerText = product.description;
 
-    // Use forEach Method to display different colors
+    // The forEach Method is used to display different colours
  
     product.colors.forEach(color => {
         console.log(color);
-        let productColor = document.createElement("option");
-        document.getElementById('colors').appendChild(productColor);
-        productColor.setAttribute('value', color);
-        productColor.innerText = color;
+        let sofaColour = document.createElement("option");
+        document.getElementById('colors').appendChild(sofaColour);
+        sofaColour.setAttribute('value', color);
+        sofaColour.innerText = color;
        
     });
 }
 
-// Call DOM elements 
+// Define the DOM elements you need to call 
 
-let addButton = document.getElementById("addToCart");
+let cartButton = document.getElementById("addToCart");
 let quantity = document.getElementById('quantity');
-let color = document.getElementById('colors');
+let colour = document.getElementById('colors');
 
 
+//This stores the value in the local storage
+let sofaLocStorString = localStorage.getItem("product");
+console.log(sofaLocStorString); 
 
-let productLocalStorageString = localStorage.getItem("product");
-console.log(productLocalStorageString); 
+let sofaLocalStorage = JSON.parse(sofaLocStorString);
+console.log(sofaLocalStorage);
 
-let productLocalStorage = JSON.parse(productLocalStorageString);
-console.log(productLocalStorage);
-
-function addProductToCart(product) {
-    addButton.addEventListener("click", (event) => {
+function addSofaToCart(product) {
+    cartButton.addEventListener("click", (event) => {
 
         
 
-        let productProperties = {
+        let sofaProperties = {
             productId: productId,
-            productColor: color.value,
+            sofaColour: color.value,
             productQuantity: Number(quantity.value),
         }
 
         if ((quantity.value == 0 || quantity.value == null) && (color.value == 0 || color.value == null)) {
-            alert('⚠️ Please choose the quantity and a color!');
+            alert('⚠️ Please choose the quantity and a colour!');
             window.location.reload();
         }
         else if (color.value == 0 || color.value == null) {
-            alert('⚠️ Please choose a color!');
+            alert('⚠️ Please choose a colour!');
             window.location.reload();
         }
         else if (quantity.value == 0 || quantity.value == null) {
@@ -115,51 +115,51 @@ function addProductToCart(product) {
                 alert(`
                 ✅ The selected product was added to the cart! 
                 
-                ✔️ Product quantity: ${productProperties.productQuantity} 
+                ✔️ Product quantity: ${sofaProperties.productQuantity} 
                 ✔️ Product name: ${product.name} 
-                ✔️ Product color: ${productProperties.productColor}`);
+                ✔️ Product color: ${sofaProperties.sofaColour}`);
             }
 
-            if (productLocalStorage == null || productLocalStorage == 0) {
-                productLocalStorage = [];
-                productLocalStorage.push(productProperties);
-                localStorage.setItem("product", JSON.stringify(productLocalStorage));
+            if (sofaLocalStorage == null || sofaLocalStorage == 0) {
+                sofaLocalStorage = [];
+                sofaLocalStorage.push(sofaProperties);
+                localStorage.setItem("product", JSON.stringify(sofaLocalStorage));
                 messageAlert();
                 location.assign("cart.html");
             }
 
             else {
-                const filterProduct = productLocalStorage.findIndex(
-                    item => item.productId === productId && item.productColor === color.value);
+                const filterProduct = sofaLocalStorage.findIndex(
+                    item => item.productId === productId && item.sofaColour === color.value);
 
                 console.log(filterProduct);
 
                 if (filterProduct >= 0) {
-                    newQuantity = Number(productProperties.productQuantity) + Number(productLocalStorage[filterProduct].productQuantity);
+                    newQuantity = Number(sofaProperties.productQuantity) + Number(sofaLocalStorage[filterProduct].productQuantity);
 
 
-                    if (productLocalStorage[filterProduct].productQuantity == 100) {
-                        alert(`✅ You already chosed "${productLocalStorage[filterProduct].productQuantity}" product for the product "${product.name}", thus you can NOT choose more product!`);
+                    if (sofaLocalStorage[filterProduct].productQuantity == 100) {
+                        alert(`✅ You already chosed "${sofaLocalStorage[filterProduct].productQuantity}" product for the product "${product.name}", thus you can NOT choose more product!`);
                         window.location.reload();
                     }
 
-                    else if ((productLocalStorage[filterProduct].productQuantity + productProperties.productQuantity) > 100) {
-                        alert(`✅ You have already added "${productLocalStorage[filterProduct].productQuantity}" products for the product "${product.name}", thus you can add maximum "${100 - productLocalStorage[filterProduct].productQuantity}" from the same product!`);
+                    else if ((sofaLocalStorage[filterProduct].productQuantity + sofaProperties.productQuantity) > 100) {
+                        alert(`✅ You have already added "${sofaLocalStorage[filterProduct].productQuantity}" products for the product "${product.name}", thus you can add maximum "${100 - sofaLocalStorage[filterProduct].productQuantity}" from the same product!`);
                         window.location.reload();
 
                     }
 
                     else if (newQuantity <= 100) {
-                        productLocalStorage[filterProduct].productQuantity = newQuantity;
-                        localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                        sofaLocalStorage[filterProduct].productQuantity = newQuantity;
+                        localStorage.setItem("product", JSON.stringify(sofaLocalStorage));
                         messageAlert();
                         location.assign("cart.html");
                     }
                 }
 
                 else {
-                    productLocalStorage.push(productProperties);
-                    localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                    sofaLocalStorage.push(sofaProperties);
+                    localStorage.setItem("product", JSON.stringify(sofaLocalStorage));
                     messageAlert();
                     location.assign("cart.html");
                 }
