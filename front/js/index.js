@@ -1,12 +1,10 @@
-// import fetch from 'node-fetch'
-
-// import fetch from 'node-fetch' 
-
+// API localhost
 const uri = "http://localhost:3000/api/products";
 
+//Function to populate all the sofa products on the main page from the API
 
 function displayAllProducts() {
-  fetch(uri)
+  fetch(uri) // fetch the localhost
     .then(function (response) {
       if (response.ok) {
         return response.json();
@@ -15,25 +13,18 @@ function displayAllProducts() {
     .then(function (products) {
       console.log(products);
 
-      // 5. Use forEach Method
-
+     
+      //using for each of the products to create the cards on the DOM for each sofa
       products.forEach(product => {
 
-        // products.forEach(function(product) {});
+        
 
         console.log(product);
 
-        // 6. Use "createElement, appendChild, setAttribute" Methods
-        // setAttribute(name, value) => it adds the name of the attribute and its value, setAttribute("href", url)
-        // createElement("img") => it adds an <img> element 
-        // appendChild() => it adds your HTML element to the existing HTML element 
-
+        
         let productLink = document.createElement('a');
         productLink.setAttribute('href', `product.html?id=${product._id}`);
         document.getElementById('items').appendChild(productLink);
-
-        // You can also use this opportunity => productLink.href = `product.html?id=${product._id}`;
-        // This is short way for setAttribute but use always "setAttribute" which is clear to understand the code
 
         let article = document.createElement('article');
         productLink.appendChild(article);

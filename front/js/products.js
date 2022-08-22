@@ -1,17 +1,17 @@
 
 let queryString = window.location.search;
 
-console.log(window.location); // See the properties of object "window.location"
+console.log(window.location); 
 
 let urlParams = new URLSearchParams(queryString);
 
 let productId = urlParams.get("id");
 
-console.log(productId); // Find ID of the Product
+console.log(productId); 
 
 let urlProduct = `http://localhost:3000/api/products/${productId}`;
 
-console.log(urlProduct); // Find full URL of the Product
+console.log(urlProduct); 
 
 function getProduct() {
     fetch(urlProduct).then((response) => {
@@ -52,15 +52,14 @@ function displayProduct(product) {
     productDescription.innerText = product.description;
 
     // Use forEach Method to display different colors
-    // choose color, if you write productColor.innerText = product.colors, it shows three colors at the same line, it is a mistake
+ 
     product.colors.forEach(color => {
         console.log(color);
         let productColor = document.createElement("option");
         document.getElementById('colors').appendChild(productColor);
         productColor.setAttribute('value', color);
         productColor.innerText = color;
-        // productColor.value = color;
-        // productColor.innerText = color;
+       
     });
 }
 
@@ -70,12 +69,10 @@ let addButton = document.getElementById("addToCart");
 let quantity = document.getElementById('quantity');
 let color = document.getElementById('colors');
 
-// Store the values in the local storage
-// Declare the varible "productLocalStorageString", I want to call the saved products in the local storage in which I will add the keys and values 
-// The JSON.parse() method parses a JSON string and construct the JavaScript value or object described by the string
+
 
 let productLocalStorageString = localStorage.getItem("product");
-console.log(productLocalStorageString); // At first it is "null", the key/value pair is string
+console.log(productLocalStorageString); 
 
 let productLocalStorage = JSON.parse(productLocalStorageString);
 console.log(productLocalStorage);
@@ -83,7 +80,7 @@ console.log(productLocalStorage);
 function addProductToCart(product) {
     addButton.addEventListener("click", (event) => {
 
-        // create an object that holds 3 properties of choosed product
+        
 
         let productProperties = {
             productId: productId,
@@ -175,6 +172,3 @@ function addProductToCart(product) {
 }
 
 
-  // Go to all the products and search for the product id and color. If a product id and color matches with my product filter method will return that product
-  // and it will be stored in the filterProduct variable, I will add this product to the cart
-  // You can use an alternative way for "location.assign()" => window.location.href = "cart.html";
