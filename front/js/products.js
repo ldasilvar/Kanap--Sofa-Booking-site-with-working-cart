@@ -1,11 +1,11 @@
 
-let queryString = window.location.search;
+let windloc = window.location.search;
 
 console.log(window.location); 
 
-let urlParams = new URLSearchParams(queryString);
+let params = new URLSearchParams(windloc);
 
-let productId = urlParams.get("id");
+let productId = params.get("id");
 
 console.log(productId); 
 
@@ -70,7 +70,7 @@ let quantity = document.getElementById('quantity');
 let color = document.getElementById('colors');
 
 
-//This stores the value in the local storage
+//Stores the value in the local storage
 let sofaLocStorString = localStorage.getItem("product");
 console.log(sofaLocStorString); 
 
@@ -101,11 +101,11 @@ function addSofaToCart(product) {
             window.location.reload();
         }
         else if (quantity.value < 0) {
-            alert('⚠️ You can NOT choose a quantity of less than 1 product');
+            alert('❌ You can NOT choose a quantity of less than 1 product');
             window.location.reload();
         }
         else if (quantity.value > 100) {
-            alert('⚠️ You can NOT choose a quantity of more than 100!');
+            alert('❌ You can NOT choose a quantity of more than 100!');
             window.location.reload();
         }
         else if (quantity.value > 0 && quantity.value <= 100) {
@@ -117,7 +117,7 @@ function addSofaToCart(product) {
                 
                 ✔️ Product quantity: ${sofaProperties.productQuantity} 
                 ✔️ Product name: ${product.name} 
-                ✔️ Product color: ${sofaProperties.sofaColour}`);
+                ✔️ Colour of sofa: ${sofaProperties.sofaColour}`);
             }
 
             if (sofaLocalStorage == null || sofaLocalStorage == 0) {
