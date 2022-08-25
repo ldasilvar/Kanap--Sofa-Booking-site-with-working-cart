@@ -147,8 +147,6 @@ if (sofaLocalStorage) {
 
         function totalPrice() {
 
-          // Determine total quantity and total price
-
           let totalQuantity = 0;
           let displayTotalPrice = 0;
 
@@ -171,5 +169,180 @@ if (sofaLocalStorage) {
   });
 }
 
+//Form Validation
 
+
+var regExText = /^[a-zA-Z\s\'\-]{2,20}$/; //regEx will be used to validate first name, last name and city
+var regExAddress = /^[0-9\\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
+var regExEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
+
+function validateFirstName() {
+
+  
+  
+  let firstName = document.getElementById("firstName").value;
+
+  if (regExText.test(firstName)) {//if input is valid, update page to show succesful entry
+    document.getElementById("firstNameErrorMsg").innerText = "✅ Name is valid!";
+    return true;
+  }
+  else {//if input is invalid, update page to prompt for new input
+    document.getElementById("firstNameErrorMsg").innerText = "⚠️ Please enter a valid name using 2-20 characters";
+    return false;
+  }
+}
+
+function validatelastName() {
+
+  let lastName = document.getElementById("lastName").value;
+
+  if (regExText.test(lastName)) {
+    document.getElementById("lastNameErrorMsg").innerText = "✅ Last name is valid!";
+    return true;
+  }
+  else {
+    document.getElementById("lastNameErrorMsg").innerText = "⚠️ Please enter a valid last name using 2-20 characters";
+    return false;
+  }
+}
+
+function validateAddress() {
+
+  let address = document.getElementById("address").value;
+
+  if (regExAddress.test(address)) {
+    document.getElementById("addressErrorMsg").innerText = "✅ Address is valid!";
+    return true;
+  }
+  else {
+    document.getElementById("addressErrorMsg").innerText = "⚠️ Format E.g.: 01 xxxxxxxx 12345";
+    return false;
+  }
+}
+
+function validateCity() {
+
+  let city = document.getElementById("city").value;
+
+  if (regExText.test(city)) {
+    document.getElementById("cityErrorMsg").innerText = "✅ City name is valid!";
+    return true;
+  }
+  else {
+    document.getElementById("cityErrorMsg").innerText = "⚠️ Please enter a valid city name!";
+    return false;
+  }
+}
+
+function validateEmail() {
+
+  let email = document.getElementById("email").value;
+
+  if (regExEmail.test(email)) {
+    document.getElementById("emailErrorMsg").innerText = "✅ Email address is valid!";
+    return true;
+  } else {
+    document.getElementById("emailErrorMsg").innerText = "⚠️ Please enter a valid email address!";
+    return false;
+  }
+}
+
+
+var formSubmitButton = document.querySelector('.cart__order__form');
+
+formSubmitButton.addEventListener('change', function () {
+  validateFirstName(firstName);
+  validatelastName(lastName);
+  validateAddress(address);
+  validateCity(city);
+  validateEmail(email);
+});
+
+
+const formButton = document.getElementById('order');
+console.log(formButton);
+
+formButton.addEventListener('click', event => {
+  event.preventDefault();
+
+  // put the form values in an object
+  // put the values of the form and the selected products in an object to send to the server
+
+  var contact = {
+    firstName: document.getElementById('firstName').value,
+    lastName: document.getElementById('lastName').value,
+    address: document.getElementById('address').value,
+    city: document.getElementById('city').value,
+    email: document.getElementById('email').value,
+  }
+
+  if (firstName.value.length == 0 ||
+    lastName.value.length == 0 ||
+    address.value.length == 0 ||
+    city.value.length == 0 ||
+    email.value.length == 0) {
+    alert("⚠️ Please fill the form!");
+
+  } else if (regExEmail.test(email.value) == false || regExAddress.test(address.value) == false || regExText.test(city.value) == false || regExText.test(firstName.value) == false || regExText.test(lastName.value) == false) {
+    alert("⚠️ Please provide valid values on the form!");
+
+  }
+  else if (sofaLocalStorage== null || sofaLocalStorage == 0) {
+    alert('⚠️ Please choose a product!')
+  }
+    else {
+
+        localStorage.setItem('contact', JSON.stringify(contact));
+    
+        let products = []; // see id of selected product
+    
+        sofaLocalStorage.forEach(productSelected => {
+          products.push(productSelected.productId);
+    
+        });
+    
+        console.log(products);
+        console.log(typeof products); // object
+    
+        let userInfo = {
+          contact, // object type
+          products,  // object type
+        }
+    
+        console.log(userInfo);
+        console.log(typeof contact); // object
+    
+        let urlOrder = "http://localhost:3000/api/products/order"
+    
+        fetch(urlOrder, {
+          method: 'POST',
+          body: JSON.stringify(userInfo),
+          headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+          },
+        })
+          .then(function (response) {
+            if (response.ok) {
+              return response.json();
+            }
+          })
+          .then(function (info) {
+    
+            console.log(info);
+    
+            location.href = `confirmation.html?id=${info.orderId}`;
+    
+            console.log(`confirmation.html?id=${info.orderId}`);
+    
+          })
+          .catch(function (error) {
+            alert("⚠️ Post error!");
+    
+          });
+    
+      }
+    
+    });
+    
 

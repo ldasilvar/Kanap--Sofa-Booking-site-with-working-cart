@@ -85,7 +85,7 @@ function addSofaToCart(product) {
         let sofaProperties = {
             productId: productId,
             sofaColour: color.value,
-            productQuantity: Number(quantity.value),
+            sofaQuantity: Number(quantity.value),
         }
 
         if ((quantity.value == 0 || quantity.value == null) && (color.value == 0 || color.value == null)) {
@@ -115,7 +115,7 @@ function addSofaToCart(product) {
                 alert(`
                 ✅ The sofa you selected was added to the cart! 
                 
-                ✔️ Product quantity: ${sofaProperties.productQuantity} 
+                ✔️ Product quantity: ${sofaProperties.sofaQuantity} 
                 ✔️ Product name: ${product.name} 
                 ✔️ Colour of sofa: ${sofaProperties.sofaColour}`);
             }
@@ -135,22 +135,22 @@ function addSofaToCart(product) {
                 console.log(filterProduct);
 
                 if (filterProduct >= 0) {
-                    newQuantity = Number(sofaProperties.productQuantity) + Number(sofaLocalStorage[filterProduct].productQuantity);
+                    newQuantity = Number(sofaProperties.sofaQuantity) + Number(sofaLocalStorage[filterProduct].sofaQuantity);
 
 
-                    if (sofaLocalStorage[filterProduct].productQuantity == 100) {
-                        alert(`✅ You already chose "${sofaLocalStorage[filterProduct].productQuantity}" sofas in our "${product.name}" line, and therefore you can NOT add any more!`);
+                    if (sofaLocalStorage[filterProduct].sofaQuantity == 100) {
+                        alert(`✅ You already chose "${sofaLocalStorage[filterProduct].sofaQuantity}" sofas in our "${product.name}" line, and therefore you can NOT add any more!`);
                         window.location.reload();
                     }
 
-                    else if ((sofaLocalStorage[filterProduct].productQuantity + sofaProperties.productQuantity) > 100) {
-                        alert(`✅ You have already added "${sofaLocalStorage[filterProduct].productQuantity}" sofas in our "${product.name}" line, and therefore you can add a maximum of "${100 - sofaLocalStorage[filterProduct].productQuantity}" from the same line!`);
+                    else if ((sofaLocalStorage[filterProduct].sofaQuantity + sofaProperties.sofaQuantity) > 100) {
+                        alert(`✅ You have already added "${sofaLocalStorage[filterProduct].sofaQuantity}" sofas in our "${product.name}" line, and therefore you can add a maximum of "${100 - sofaLocalStorage[filterProduct].sofaQuantity}" from the same line!`);
                         window.location.reload();
 
                     }
 
                     else if (newQuantity <= 100) {
-                        sofaLocalStorage[filterProduct].productQuantity = newQuantity;
+                        sofaLocalStorage[filterProduct].sofaQuantity = newQuantity;
                         localStorage.setItem("product", JSON.stringify(sofaLocalStorage));
                         messageAlert();
                         location.assign("cart.html");
