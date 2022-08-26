@@ -169,7 +169,7 @@ if (sofaLocalStorage) {
   });
 }
 
-//Form Validation
+//Form Validation using regex
 
 
 var regExText = /^[a-zA-Z\s\'\-]{2,20}$/; //regEx will be used to validate first name, last name and city
@@ -265,8 +265,7 @@ console.log(formButton);
 formButton.addEventListener('click', event => {
   event.preventDefault();
 
-  // put the form values in an object
-  // put the values of the form and the selected products in an object to send to the server
+  
 
   var contact = {
     firstName: document.getElementById('firstName').value,

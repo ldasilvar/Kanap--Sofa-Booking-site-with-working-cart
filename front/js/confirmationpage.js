@@ -1,16 +1,17 @@
 
-let StringOrderId = window.location.search;
+let confirmationId = window.location.search;
 
 console.log(window.location);
 
-let params = new URLSearchParams(StringOrderId);
+let params = new URLSearchParams(confirmationId);
 
 let orderId = params.get("id");
 
 console.log(orderId);
 
-const displayOrderId  = document.getElementById("orderId");
+const showConfirmationId  = document.getElementById("orderId");
 
-displayOrderId.innerText = orderId;
+showConfirmationId.innerText = orderId;
 
+//This clears the id from the local storage, ready for a new order post to come through
 localStorage.clear();
