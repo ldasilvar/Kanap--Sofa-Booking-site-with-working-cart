@@ -55,7 +55,7 @@ if (sofaLocalStorage) {
         
         let price = document.createElement("p");
         contDesc.appendChild(price);
-        price.innerText = products.price + " €";
+        price.innerText = " €" + products.price;
 
         
         let cartSettings = document.createElement("div");
@@ -72,7 +72,7 @@ if (sofaLocalStorage) {
         cartQuant .appendChild(quantPar);
         quantPar.innerText = "Quantity : ";
 
-       
+        
         let sofaQuantity = document.createElement("input");
         cartQuant.appendChild(sofaQuantity);
         sofaQuantity.value = product.sofaQuantity;
@@ -143,16 +143,18 @@ if (sofaLocalStorage) {
         })
 
         // Function to calculate the total price of items in the cart
-        var changeQuantity = document.querySelectorAll(".itemQuantity");
+        
 
         function totalPrice() {
-
+          var changeQuantity = document.querySelectorAll(".itemQuantity");
           let totalQuantity = 0;
           let displayTotalPrice = 0;
 
-          changeQuantity.forEach(element => {
+          changeQuantity.forEach((element,index) => {
             totalQuantity += Number(changeQuantity[index].value);
             displayTotalPrice += Number((changeQuantity[index].value * products.price));
+
+                
 
           });
 
@@ -161,7 +163,8 @@ if (sofaLocalStorage) {
 
           let showTotalPrice = document.getElementById("totalPrice");
           showTotalPrice.innerText = displayTotalPrice;
-
+          console.log (displayTotalPrice);
+          console.log(totalQuantity);
         
         }
         totalPrice();

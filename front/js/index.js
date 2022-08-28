@@ -48,7 +48,7 @@ function displaySofas() {
 
     })
     .catch(function (error) {
-      alert("⚠️ Error! Fetch()!")
+      alert("⚠️ Error! Unable to fetch from API server()!")
     });
 }
 displaySofas();

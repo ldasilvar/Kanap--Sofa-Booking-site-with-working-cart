@@ -27,7 +27,7 @@ function fetchSofa() {
         }
 
     }).catch((error) => {
-        alert('Error fetch()!')
+        alert('Error in fetching products from API()!')
 
     })
 }
