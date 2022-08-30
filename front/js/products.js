@@ -77,15 +77,15 @@ console.log(sofaLocStorString);
 let sofaLocalStorage = JSON.parse(sofaLocStorString);
 console.log(sofaLocalStorage);
 
+
 function addSofaToCart(product) {
     cartButton.addEventListener("click", (event) => {
-
-        
 
         let sofaProperties = {
             productId: productId,
             sofaColour: color.value,
             sofaQuantity: Number(quantity.value),
+            sofaPrice: Number(product.price)
         }
 
         if ((quantity.value == 0 || quantity.value == null) && (color.value == 0 || color.value == null)) {

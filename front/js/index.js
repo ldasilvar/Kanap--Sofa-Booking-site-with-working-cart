@@ -4,7 +4,7 @@ const uri = "http://localhost:3000/api/products";
 //Function to populate all the sofa products on the main page from the API
 
 function displaySofas() {
-  fetch(uri) // fetch the localhost
+  fetch(uri) // fetch the api
     .then(function (response) {
       if (response.ok) {
         return response.json();

@@ -83,6 +83,7 @@ if (sofaLocalStorage) {
         sofaQuantity.setAttribute("name", "itemQuantity");
 
         
+        
         let divDelete = document.createElement("div");
         cartSettings.appendChild(divDelete);
         divDelete.setAttribute('class', "cart__item__content__settings__delete");
@@ -146,16 +147,19 @@ if (sofaLocalStorage) {
         
 
         function totalPrice() {
-          var changeQuantity = document.querySelectorAll(".itemQuantity");
+          var updatedQuantity = document.querySelectorAll(".itemQuantity");
+          
           let totalQuantity = 0;
           let displayTotalPrice = 0;
+          sofaQuantity.value= product.sofaQuantity;
+         
+          console.log(sofaQuantity.value * products.price)
+          
 
-          changeQuantity.forEach((element,index) => {
-            totalQuantity += Number(changeQuantity[index].value);
-            displayTotalPrice += Number((changeQuantity[index].value * products.price));
-
-                
-
+          updatedQuantity.forEach((element,index) => {
+          totalQuantity += Number(updatedQuantity[index].value);
+          displayTotalPrice += Number((updatedQuantity[index].value * products.price));
+         
           });
 
           let productTotalQuantity = document.getElementById('totalQuantity');
@@ -163,19 +167,24 @@ if (sofaLocalStorage) {
 
           let showTotalPrice = document.getElementById("totalPrice");
           showTotalPrice.innerText = displayTotalPrice;
-          console.log (displayTotalPrice);
-          console.log(totalQuantity);
+
         
-        }
+      }
         totalPrice();
       });
-  });
-}
+});  
+  }
+
+
+  
+
+
+
 
 //Form Validation using regex
 
 
-var regExText = /^[a-zA-Z\s\'\-]{2,20}$/; //regEx will be used to validate first name, last name and city
+var regExText = /^[a-zA-Z\s\'\-]{2,20}$/; //regExText will be used to validate first name, last name and city
 var regExAddress = /^[0-9\\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
 var regExEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
 
@@ -263,7 +272,7 @@ formSubmitButton.addEventListener('change', function () {
 
 
 const formButton = document.getElementById('order');
-console.log(formButton);
+
 
 formButton.addEventListener('click', event => {
   event.preventDefault();
