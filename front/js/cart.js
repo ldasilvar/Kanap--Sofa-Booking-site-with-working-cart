@@ -1,5 +1,7 @@
 
 let sofaLocalStorage = JSON.parse(localStorage.getItem("product"));
+let displayTotalPrice = 0;
+  
 
 console.log(sofaLocalStorage);
 
@@ -150,16 +152,16 @@ if (sofaLocalStorage) {
           var updatedQuantity = document.querySelectorAll(".itemQuantity");
           
           let totalQuantity = 0;
-          let displayTotalPrice = 0;
+          
           sofaQuantity.value= product.sofaQuantity;
          
-          console.log(sofaQuantity.value * products.price)
+          displayTotalPrice += sofaQuantity.value * products.price;
           
 
-          updatedQuantity.forEach((element,index) => {
-          totalQuantity += Number(updatedQuantity[index].value);
-          displayTotalPrice += Number((updatedQuantity[index].value * products.price));
-         
+
+          updatedQuantity.forEach((element) => {
+           totalQuantity += Number(element.value);
+          
           });
 
           let productTotalQuantity = document.getElementById('totalQuantity');
