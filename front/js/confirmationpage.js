@@ -1,13 +1,9 @@
 
 let confirmationId = window.location.search;
 
-console.log(window.location);
-
 let params = new URLSearchParams(confirmationId);
 
 let orderId = params.get("id");
-
-console.log(orderId);
 
 const showConfirmationId  = document.getElementById("orderId");
 

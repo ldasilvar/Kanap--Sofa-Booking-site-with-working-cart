@@ -1,9 +1,8 @@
-
+//Getting product item from localstorage
 let sofaLocalStorage = JSON.parse(localStorage.getItem("product"));
+//Used for the totalPrice function
 let displayTotalPrice = 0;
   
-
-console.log(sofaLocalStorage);
 
 if (sofaLocalStorage) {
     sofaLocalStorage.forEach(function (product, index) {
@@ -108,7 +107,6 @@ if (sofaLocalStorage) {
 
           localStorage.setItem("product", JSON.stringify(sofaLocalStorage));
 
-          console.log(sofaLocalStorage);
 
           // message after deleted item and refresh the page
 
@@ -145,7 +143,7 @@ if (sofaLocalStorage) {
 
         })
 
-        // Function to calculate the total price of items in the cart
+        // Function to calculate the quantity and total price of items in the cart
         
 
         function totalPrice() {
@@ -178,11 +176,6 @@ if (sofaLocalStorage) {
   }
 
 
-  
-
-
-
-
 //Form Validation using regex
 
 
@@ -191,8 +184,6 @@ var regExAddress = /^[0-9\\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
 var regExEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
 
 function validateFirstName() {
-
-  
   
   let firstName = document.getElementById("firstName").value;
 
@@ -261,7 +252,6 @@ function validateEmail() {
   }
 }
 
-
 var formSubmitButton = document.querySelector('.cart__order__form');
 
 formSubmitButton.addEventListener('change', function () {
@@ -280,7 +270,6 @@ formButton.addEventListener('click', event => {
   event.preventDefault();
 
   
-
   var contact = {
     firstName: document.getElementById('firstName').value,
     lastName: document.getElementById('lastName').value,
@@ -314,17 +303,12 @@ formButton.addEventListener('click', event => {
     
         });
     
-        console.log(products);
-        console.log(typeof products); // object
-    
         let userInfo = {
-          contact, // object type
-          products,  // object type
+          contact, 
+          products,  
         }
     
-        console.log(userInfo);
-        console.log(typeof contact); // object
-    
+    //Using post method on fetch to send the form, in particular product Id to the confirmation page
         let urlOrder = "http://localhost:3000/api/products/order"
     
         fetch(urlOrder, {
@@ -342,7 +326,6 @@ formButton.addEventListener('click', event => {
           })
           .then(function (info) {
     
-            console.log(info);
     
             location.href = `confirmation.html?id=${info.orderId}`;
     

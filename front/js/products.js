@@ -1,25 +1,19 @@
-
+//Defines the window.location to be used, the urlsearchparams, and the localhost location to find the product Id
 let windloc = window.location.search;
-
-console.log(window.location); 
 
 let params = new URLSearchParams(windloc);
 
-let productId = params.get("id");
-
-console.log(productId); 
+let productId = params.get("id"); 
 
 let productLink = `http://localhost:3000/api/products/${productId}`;
 
-console.log(productLink); 
+//Function to check if there is an ID in localstorage, then the two functions displaySofa and addSofatoCart should run
 
 function fetchSofa() {
     fetch(productLink).then((response) => {
         return response.json();
 
     }).then(function (product) {
-
-        console.log(product);
 
         if (product) {
             displaySofa(product);
@@ -72,13 +66,14 @@ let color = document.getElementById('colors');
 
 //Stores the value in the local storage
 let sofaLocStorString = localStorage.getItem("product");
-console.log(sofaLocStorString); 
 
 let sofaLocalStorage = JSON.parse(sofaLocStorString);
-console.log(sofaLocalStorage);
 
+
+//Function to add products to the cart and store it in the localstorage
 
 function addSofaToCart(product) {
+    //EventListener listening for a click event
     cartButton.addEventListener("click", (event) => {
 
         let sofaProperties = {
@@ -87,7 +82,7 @@ function addSofaToCart(product) {
             sofaQuantity: Number(quantity.value),
             sofaPrice: Number(product.price)
         }
-
+        //Alert messages depending on the circumstance
         if ((quantity.value == 0 || quantity.value == null) && (color.value == 0 || color.value == null)) {
             alert('⚠️ Please choose the number of products you wish to purchase and the colour!');
             window.location.reload();
@@ -132,7 +127,6 @@ function addSofaToCart(product) {
                 const filterProduct = sofaLocalStorage.findIndex(
                     item => item.productId === productId && item.sofaColour === color.value);
 
-                console.log(filterProduct);
 
                 if (filterProduct >= 0) {
                     newQuantity = Number(sofaProperties.sofaQuantity) + Number(sofaLocalStorage[filterProduct].sofaQuantity);

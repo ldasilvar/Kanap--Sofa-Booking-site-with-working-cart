@@ -11,15 +11,10 @@ function displaySofas() {
       }
     })
     .then(function (products) {
-      console.log(products);
 
      
       //using for each of the products to create the cards on the DOM for each sofa
       products.forEach(product => {
-
-        
-
-        console.log(product);
 
         
         let sofaLink = document.createElement('a');
@@ -47,6 +42,7 @@ function displaySofas() {
       });
 
     })
+    //Error in case API server is not found
     .catch(function (error) {
       alert("⚠️ Error! Unable to fetch from API server()!")
     });
